@@ -1,5 +1,5 @@
 import { Component } from "react";
-import "./generalInformation.css";
+import "../styles/generalInformation.css";
 import PersonalInfoForm from "./personalInfoForm";
 import PersonalInfoArticle from "./personalInfoArticle";
 
@@ -24,15 +24,7 @@ class GeneralInformation extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  resetForm() {
-    const obj = { ...this.state.formValues };
-    for (const key in obj) {
-      obj[key] = "";
-    }
-
-    this.setState({ formValues: obj });
+    this.edit = this.edit.bind(this);
   }
 
   handleSubmit(e) {
@@ -52,15 +44,27 @@ class GeneralInformation extends Component {
         },
       },
     });
+  }
 
-    this.resetForm();
+  edit() {
+    this.setState({ isEditing: true });
   }
 
   render() {
     if (this.state.isEditing) {
-      return <PersonalInfoForm submitHandler={this.handleSubmit} />;
+      return (
+        <PersonalInfoForm
+          submitHandler={this.handleSubmit}
+          personalInfo={this.state.personalInfo}
+        />
+      );
     } else {
-      return <PersonalInfoArticle personalInfo={this.state.personalInfo} />;
+      return (
+        <PersonalInfoArticle
+          personalInfo={this.state.personalInfo}
+          clickHandler={this.edit}
+        />
+      );
     }
   }
 }

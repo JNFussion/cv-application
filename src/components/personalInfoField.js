@@ -1,33 +1,10 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
 
 class PersonalInfoField extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formValues: {
-        firstName: "",
-        lastName: "",
-        city: "",
-        country: "",
-        phoneNumber: "",
-        email: "",
-      },
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
   labelFormatted() {
     let label = this.props.type.name.replace(/([A-Z])/g, " $1").trim();
     return label.charAt(0).toUpperCase() + label.slice(1);
-  }
-
-  handleChange(e) {
-    this.setState((prevState) => ({
-      formValues: {
-        ...prevState.formValues,
-        [e.target.name]: e.target.value,
-      },
-    }));
   }
   render() {
     if (this.props.isEditing) {
@@ -44,16 +21,24 @@ class PersonalInfoField extends Component {
             <input
               type="text"
               name={this.props.type.name}
-              onChange={this.handleChange}
-              value={this.state.formValues[this.props.type.name]}
+              onChange={this.props.changeHandler}
+              value={this.props.type.value}
               placeholder={this.props.type.placeholder}
+              required
             />
           </label>
         </div>
       );
     } else {
       if (this.props.IsContact) {
-        return <li>{this.props.text}</li>;
+        return (
+          <li>
+            <span className="fa-li text-gray-500">
+              <FontAwesomeIcon icon={this.props.iconName} />
+            </span>
+            <span className="align-top">{this.props.text}</span>
+          </li>
+        );
       } else {
         return <span>{this.props.text}</span>;
       }

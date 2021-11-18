@@ -4,18 +4,34 @@
   }
 
   .personal-info-container {
+    @apply p-4 mx-auto bg-gray-100;
+  }
+
+  form.personal-info-container {
     max-width: 60%;
-    @apply p-4 bg-gray-100;
+  }
+
+  article.personal-info-container {
+    @apply relative;
+  }
+
+  .field-container {
+    @apply p-2 my-2;
+  }
+
+  .field-container p {
+    @apply p-2;
   }
 
   .group-control {
-    @apply flex gap-10 p-2 my-2;
+    @apply flex gap-10;
   }
   .group-control .control:not(.flex-grow-0) {
     @apply flex-auto;
   }
 
-  .group-control legend {
+  .group-control legend,
+  .field-container h3 {
     @apply font-bold;
   }
 
@@ -37,5 +53,12 @@
     @apply block my-2 ml-auto px-4  py-1 rounded-md border border-solid border-black shadow-md 
           text-white font-bold bg-indigo-500
           hover:text-indigo-500 hover:bg-white hover:border-indigo-500;
+  }
+
+  .btn-edit {
+    @apply absolute right-8 text-lg text-green-400 hover:text-green-600;
+  }
+  .btn-edit > * {
+    @apply px-2 py-1;
   }
 }
