@@ -1,0 +1,41 @@
+@layer components {
+  .transition-state {
+    @apply transition-all ease-in-out duration-200;
+  }
+
+  .personal-info-container {
+    max-width: 60%;
+    @apply p-4 bg-gray-100;
+  }
+
+  .group-control {
+    @apply flex gap-10 p-2 my-2;
+  }
+  .group-control .control:not(.flex-grow-0) {
+    @apply flex-auto;
+  }
+
+  .group-control legend {
+    @apply font-bold;
+  }
+
+  .control > * {
+    @apply block;
+  }
+
+  .control label .label-title {
+    @apply my-2 text-sm italic text-gray-800;
+  }
+
+  .control input {
+    @apply w-full px-4 py-1 border border-solid border-blue-100 rounded shadow-sm transition-state
+      focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent
+    hover:border-blue-400;
+  }
+
+  .btn-submit {
+    @apply block my-2 ml-auto px-4  py-1 rounded-md border border-solid border-black shadow-md 
+          text-white font-bold bg-indigo-500
+          hover:text-indigo-500 hover:bg-white hover:border-indigo-500;
+  }
+}
