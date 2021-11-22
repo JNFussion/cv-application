@@ -1,16 +1,9 @@
+import { faAt, faPhoneSquare } from "@fortawesome/free-solid-svg-icons";
 import PersonalInfoField from "./personalInfoField";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAt, faPhoneSquare, faEdit } from "@fortawesome/free-solid-svg-icons";
 
-function PersonalInfoArticle(props) {
+function PersonalInfoContent(props) {
   return (
-    <article className="personal-info-container">
-      <button className="btn-edit" onClick={props.clickHandler}>
-        <div className="icon-container">
-          <FontAwesomeIcon icon={faEdit} />
-        </div>
-      </button>
-      <h2 className="font-extrabold">Personal Info.</h2>
+    <div>
       <section className="field-container">
         <h3>Full Name</h3>
         <p>
@@ -55,8 +48,8 @@ function PersonalInfoArticle(props) {
           />
         </ul>
       </section>
-    </article>
+    </div>
   );
 }
 
-export default PersonalInfoArticle;
+export default PersonalInfoContent;

@@ -1,7 +1,8 @@
 import { Component } from "react";
-import "../styles/generalInformation.css";
-import PersonalInfoForm from "./personalInfoForm";
-import PersonalInfoArticle from "./personalInfoArticle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import Form from "./form";
+import PersonalInfoContent from "./personalInfoContent";
 
 class GeneralInformation extends Component {
   constructor(props) {
@@ -20,6 +21,57 @@ class GeneralInformation extends Component {
           phoneNumber: "",
           email: "",
         },
+      },
+      section: {
+        title: "Personal Info.",
+        form: [
+          {
+            name: "Full Name",
+            fields: [
+              {
+                name: "firstName",
+                placeholder: "John",
+                value: "",
+              },
+              {
+                name: "lastName",
+                placeholder: "Doe",
+                value: "",
+              },
+            ],
+          },
+          {
+            name: "Current Location",
+            fields: [
+              {
+                name: "city",
+                placeholder: "Madrid",
+                value: "",
+              },
+              {
+                name: "country",
+                placeholder: "Spain",
+                value: "",
+              },
+            ],
+          },
+          {
+            name: "Contact",
+            fields: [
+              {
+                name: "phoneNumber",
+                value: "",
+                type: "tel",
+              },
+              {
+                name: "email",
+                placeholder: "johnDoe@example.com",
+                value: "",
+                type: "email",
+              },
+            ],
+          },
+        ],
       },
     };
 
@@ -51,21 +103,25 @@ class GeneralInformation extends Component {
   }
 
   render() {
-    if (this.state.isEditing) {
-      return (
-        <PersonalInfoForm
-          submitHandler={this.handleSubmit}
-          personalInfo={this.state.personalInfo}
-        />
-      );
-    } else {
-      return (
-        <PersonalInfoArticle
-          personalInfo={this.state.personalInfo}
-          clickHandler={this.edit}
-        />
-      );
-    }
+    return (
+      <article className="info-container">
+        <button className="btn-edit" onClick={this.edit}>
+          <div className="icon-container">
+            <FontAwesomeIcon icon={faEdit} />
+          </div>
+        </button>
+        <h2 className="title">Personal Info.</h2>
+
+        {this.state.isEditing ? (
+          <Form
+            submitHandler={this.handleSubmit}
+            section={this.state.section}
+          />
+        ) : (
+          <PersonalInfoContent personalInfo={this.state.personalInfo} />
+        )}
+      </article>
+    );
   }
 }
 

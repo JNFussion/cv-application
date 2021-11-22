@@ -3,3 +3,77 @@
 @tailwind utilities;
 
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+
+@layer components {
+  .transition-state {
+    @apply transition-all ease-in-out duration-200;
+  }
+
+  .info-container {
+    @apply p-4 mx-auto bg-gray-100;
+  }
+
+  form.info-container {
+    max-width: 60%;
+  }
+
+  article.info-container {
+    @apply relative;
+  }
+
+  .field-container {
+    @apply p-2 my-2;
+  }
+
+  .field-container p {
+    @apply p-2;
+  }
+
+  .title {
+    @apply font-extrabold text-2xl;
+  }
+
+  .group-control {
+    @apply flex gap-10;
+  }
+  .group-control .control:not(.flex-grow-0) {
+    @apply flex-auto;
+  }
+
+  .group-control legend,
+  .field-container h3 {
+    @apply font-bold;
+  }
+
+  .control > * {
+    @apply block;
+  }
+
+  .control label .label-title {
+    @apply my-2 text-sm italic text-gray-800;
+  }
+
+  .control input {
+    @apply w-full;
+  }
+
+  .control input,
+  .group-control select {
+    @apply px-4 py-1 border border-solid border-blue-100 rounded shadow-sm transition-state bg-white
+      focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-transparent
+    hover:border-blue-400;
+  }
+
+  .btn-submit {
+    @apply block my-2 ml-auto px-4  py-1 rounded-md border border-solid border-black shadow-md 
+          text-white font-bold bg-indigo-500
+          hover:text-indigo-500 hover:bg-white hover:border-indigo-500;
+  }
+
+  .btn-edit {
+    @apply absolute right-8 text-lg text-green-400 hover:text-green-600;
+  }
+  .btn-edit > * {
+    @apply px-2 py-1;
+  }
+}

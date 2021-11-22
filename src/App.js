@@ -1,4 +1,5 @@
 import { Component } from "react";
+import EducationInformation from "./components/educationInformation";
 import GeneralInformation from "./components/generalInformation";
 
 class App extends Component {
@@ -6,6 +7,7 @@ class App extends Component {
     return (
       <div className="mx-auto max-w-half">
         <GeneralInformation />
+        <EducationInformation />
       </div>
     );
   }
