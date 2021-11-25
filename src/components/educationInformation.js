@@ -1,10 +1,10 @@
 import uniqid from "uniqid";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Component } from "react";
 import { getSelectType } from "../util";
 import EducationInformationField from "./educationInformationField";
 import Form from "./form";
+import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
 class EducationInformation extends Component {
   constructor(props) {
@@ -12,63 +12,60 @@ class EducationInformation extends Component {
     this.state = {
       isAdding: true,
       educationInfo: [],
-      section: {
-        showTitle: true,
-        title: "Educational Experience",
-        form: [
-          {
-            fields: [
-              {
-                name: "school",
-                placeholder: "University of Bologna",
-                value: "",
-              },
-            ],
-          },
-          {
-            fields: [
-              {
-                name: "degree",
-                placeholder: "Computer Science",
-                value: "",
-              },
-            ],
-          },
-          {
-            hasSubGroup: true,
-            name: "Period of study",
-            fields: [
-              {
-                name: "startDate",
-                subName: "month",
-                type: "select",
-                value: "",
-              },
-              {
-                name: "startDate",
-                subName: "year",
-                type: "select",
-                value: "",
-              },
-              {
-                name: "endDate",
-                subName: "month",
-                type: "select",
-                value: "",
-              },
-              {
-                name: "endDate",
-                subName: "year",
-                type: "select",
-                value: "",
-              },
-            ],
-          },
-        ],
-      },
+      form: [
+        {
+          fields: [
+            {
+              name: "school",
+              placeholder: "University of Bologna",
+              value: "",
+            },
+          ],
+        },
+        {
+          fields: [
+            {
+              name: "degree",
+              placeholder: "Computer Science",
+              value: "",
+            },
+          ],
+        },
+        {
+          hasSubGroup: true,
+          name: "Period of study",
+          fields: [
+            {
+              name: "startDate",
+              subName: "month",
+              type: "select",
+              value: "",
+            },
+            {
+              name: "startDate",
+              subName: "year",
+              type: "select",
+              value: "",
+            },
+            {
+              name: "endDate",
+              subName: "month",
+              type: "select",
+              value: "",
+            },
+            {
+              name: "endDate",
+              subName: "year",
+              type: "select",
+              value: "",
+            },
+          ],
+        },
+      ],
     };
 
     this.addEducation = this.addEducation.bind(this);
+    this.toggleIsAdding = this.toggleIsAdding.bind(this);
   }
 
   getDate(form, name) {
@@ -104,19 +101,20 @@ class EducationInformation extends Component {
       };
     });
   }
+  toggleIsAdding() {
+    this.setState((prevState) => ({
+      isAdding: !prevState.isAdding,
+    }));
+  }
 
   render() {
     return (
       <article className="info-container">
-        <button className="btn-edit" onClick={this.props.clickHandler}>
-          <div className="icon-container">
-            <FontAwesomeIcon icon={faEdit} />
-          </div>
-        </button>
         <h2 className="title">Educational Experience</h2>
         {this.state.isAdding && (
           <Form
-            section={this.state.section}
+            isAdding={this.state.isAdding}
+            defaultForm={this.state.form}
             submitHandler={this.addEducation}
           />
         )}
@@ -126,6 +124,17 @@ class EducationInformation extends Component {
               <EducationInformationField item={item} />
             ))}
           </ul>
+        )}
+
+        {!this.state.isAdding && (
+          <button
+            onClick={this.toggleIsAdding}
+            className="btn transition-state block m-3 ml-auto text-xl text-indigo-500 hover:text-indigo-700"
+          >
+            <div className="icon-container">
+              <FontAwesomeIcon icon={faPlusSquare} />
+            </div>
+          </button>
         )}
       </article>
     );

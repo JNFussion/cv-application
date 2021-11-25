@@ -1,39 +1,34 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import uniqid from "uniqid";
 import Group from "./group";
 import Input from "./input";
+
+export const FormContext = React.createContext({
+  form: [],
+  handleChange: () => {},
+});
 
 class Form extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.section;
+    this.state = { form: this.props.defaultForm };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(e) {
     this.setState((prevState) => {
-      let groupIndex = -1;
-      let fieldIndex = -1;
-      const targetGroup = prevState.form.find((group, index) => {
-        fieldIndex = group.fields.findIndex(
-          (field) => field.name === e.target.name
-        );
-
-        if (fieldIndex !== -1) {
-          groupIndex = index;
-          return group;
-        }
+      const newForm = prevState.form.map((group) => {
+        group.fields.map((field) => {
+          if (field.name === e.target.name) {
+            field.value = e.target.value;
+          }
+          return field;
+        });
+        return group;
       });
-      const newGroupValue = { ...targetGroup };
-      newGroupValue.fields[fieldIndex].value = e.target.value;
-      return {
-        form: [
-          ...prevState.form.slice(0, groupIndex),
-          newGroupValue,
-          ...prevState.form.slice(groupIndex + 1),
-        ],
-      };
+      return { form: newForm };
     });
   }
 
@@ -46,14 +41,15 @@ class Form extends Component {
       >
         {this.state.form.map((group) => {
           if (group.name === undefined) {
-            return (
-              <Input
-                field={group.fields[0]}
-                changeHandler={this.handleChange}
-              />
-            );
+            return <Input field={group.fields[0]} />;
           }
-          return <Group group={group} changeHandler={this.handleChange} />;
+          return (
+            <FormContext.Provider
+              value={{ form: this.state.form, handleChange: this.handleChange }}
+            >
+              <Group group={group} />
+            </FormContext.Provider>
+          );
         })}
         <button type="submit" className="btn-submit transition-state">
           Save

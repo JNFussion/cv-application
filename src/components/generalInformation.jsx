@@ -22,57 +22,55 @@ class GeneralInformation extends Component {
           email: "",
         },
       },
-      section: {
-        title: "Personal Info.",
-        form: [
-          {
-            name: "Full Name",
-            fields: [
-              {
-                name: "firstName",
-                placeholder: "John",
-                value: "",
-              },
-              {
-                name: "lastName",
-                placeholder: "Doe",
-                value: "",
-              },
-            ],
-          },
-          {
-            name: "Current Location",
-            fields: [
-              {
-                name: "city",
-                placeholder: "Madrid",
-                value: "",
-              },
-              {
-                name: "country",
-                placeholder: "Spain",
-                value: "",
-              },
-            ],
-          },
-          {
-            name: "Contact",
-            fields: [
-              {
-                name: "phoneNumber",
-                value: "",
-                type: "tel",
-              },
-              {
-                name: "email",
-                placeholder: "johnDoe@example.com",
-                value: "",
-                type: "email",
-              },
-            ],
-          },
-        ],
-      },
+      form: [
+        {
+          name: "Full Name",
+          fields: [
+            {
+              name: "firstName",
+              placeholder: "John",
+              value: "",
+            },
+            {
+              name: "lastName",
+              placeholder: "Doe",
+              value: "",
+            },
+          ],
+        },
+        {
+          name: "Current Location",
+          fields: [
+            {
+              name: "city",
+              placeholder: "Madrid",
+              value: "",
+            },
+            {
+              name: "country",
+              placeholder: "Spain",
+              value: "",
+            },
+          ],
+        },
+        {
+          name: "Contact",
+          fields: [
+            {
+              name: "phoneNumber",
+              value: "",
+              type: "tel",
+              placeholder: "XXX XX XX XX",
+            },
+            {
+              name: "email",
+              placeholder: "johnDoe@example.com",
+              value: "",
+              type: "email",
+            },
+          ],
+        },
+      ],
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -105,7 +103,10 @@ class GeneralInformation extends Component {
   render() {
     return (
       <article className="info-container">
-        <button className="btn-edit" onClick={this.edit}>
+        <button
+          className={this.state.isEditing ? "hidden" : "btn btn-edit"}
+          onClick={this.edit}
+        >
           <div className="icon-container">
             <FontAwesomeIcon icon={faEdit} />
           </div>
@@ -115,7 +116,7 @@ class GeneralInformation extends Component {
         {this.state.isEditing ? (
           <Form
             submitHandler={this.handleSubmit}
-            section={this.state.section}
+            defaultForm={this.state.form}
           />
         ) : (
           <PersonalInfoContent personalInfo={this.state.personalInfo} />

@@ -44,7 +44,7 @@ class Group extends Component {
         <fieldset className="group-control field-container gap-0 flex-wrap">
           <legend>{this.props.group.name}</legend>
           {subGroups.map((group) => (
-            <Group group={group} changeHandler={this.props.changeHandler} />
+            <Group group={group} />
           ))}
         </fieldset>
       );
@@ -59,9 +59,7 @@ class Group extends Component {
               <Select name={field.name} type={getSelectType(field.name)} />
             );
           }
-          return (
-            <Input field={field} changeHandler={this.props.changeHandler} />
-          );
+          return <Input field={field} />;
         })}
       </fieldset>
     );

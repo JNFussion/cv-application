@@ -73,7 +73,7 @@
   .btn-edit {
     @apply absolute right-8 text-lg text-green-400 hover:text-green-600;
   }
-  .btn-edit > * {
+  .btn > * {
     @apply px-2 py-1;
   }
 }
