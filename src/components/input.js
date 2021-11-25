@@ -9,13 +9,17 @@ class Input extends Component {
   }
 
   getValue(form, name) {
-    form.find((group) => {
-      group.fields.find((field) => {
+    let val;
+
+    form.forEach((group) => {
+      group.fields.forEach((field) => {
         if (field.name === name) {
-          return field.value;
+          val = field.value;
         }
       });
     });
+
+    return val;
   }
 
   render() {

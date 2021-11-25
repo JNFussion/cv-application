@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import uniqid from "uniqid";
 import Group from "./group";
 import Input from "./input";
 
