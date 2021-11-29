@@ -1,15 +1,18 @@
 import { Component } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import Form from "./form";
 import PersonalInfoContent from "./personalInfoContent";
+import ActionButton from "./actionButton";
+import { ActionsContext } from "./educationInformation";
+import { fakeDeepCopy } from "../util";
 
 class GeneralInformation extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isEditing: true,
+      isAdding: true,
+      isEditing: false,
       personalInfo: {
         firstName: "",
         lastName: "",
@@ -74,12 +77,13 @@ class GeneralInformation extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.edit = this.edit.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.setState({
+      isAdding: false,
       isEditing: false,
       personalInfo: {
         firstName: e.target["firstName"].value,
@@ -97,26 +101,47 @@ class GeneralInformation extends Component {
   }
 
   edit() {
-    this.setState({ isEditing: true });
+    let falseDeep = fakeDeepCopy(this.state.form);
+    falseDeep[0].fields[0].value = this.state.personalInfo.firstName;
+    falseDeep[0].fields[1].value = this.state.personalInfo.lastName;
+    falseDeep[1].fields[0].value = this.state.personalInfo.location.city;
+    falseDeep[1].fields[1].value = this.state.personalInfo.location.country;
+    falseDeep[2].fields[0].value = this.state.personalInfo.contact.phoneNumber;
+    falseDeep[2].fields[1].value = this.state.personalInfo.contact.email;
+
+    return falseDeep;
+  }
+
+  toggleEdit() {
+    this.setState((prevState) => ({ isEditing: !prevState.isEditing }));
   }
 
   render() {
     return (
       <article className="info-container">
-        <button
-          className={this.state.isEditing ? "hidden" : "btn btn-edit"}
-          onClick={this.edit}
-        >
-          <div className="icon-container">
-            <FontAwesomeIcon icon={faEdit} />
-          </div>
-        </button>
-        <h2 className="title">Personal Info.</h2>
-
-        {this.state.isEditing ? (
+        <h2 className="title">
+          <span>Personal Info.</span>
+          {!this.state.isEditing && !this.state.isAdding && (
+            <ActionsContext.Provider
+              value={{
+                actionsSettings: {
+                  edit: {
+                    action: this.toggleEdit,
+                    icon: faEdit,
+                    class: "btn-edit",
+                  },
+                },
+              }}
+            >
+              <ActionButton btnType="edit" />
+            </ActionsContext.Provider>
+          )}
+        </h2>
+        {this.state.isAdding || this.state.isEditing ? (
           <Form
             submitHandler={this.handleSubmit}
-            defaultForm={this.state.form}
+            defaultForm={this.state.isEditing ? this.edit() : this.state.form}
+            hideForm={this.state.isEditing && this.toggleEdit}
           />
         ) : (
           <PersonalInfoContent personalInfo={this.state.personalInfo} />

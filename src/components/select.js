@@ -1,6 +1,7 @@
 import * as dateFns from "date-fns";
 import { Component } from "react";
 import { capitalize } from "../util";
+import { FormContext } from "./form";
 
 class Select extends Component {
   constructor(props) {
@@ -35,10 +36,20 @@ class Select extends Component {
     }
 
     return (
-      <select name={this.props.name}>
-        <option value="">--Not specified--</option>
-        {dates.map((date) => this.getOption(date))}
-      </select>
+      <FormContext.Consumer>
+        {({ handleChange }) => {
+          return (
+            <select
+              name={this.props.name}
+              value={this.props.value}
+              onChange={handleChange}
+            >
+              <option value="">-- No Specified --</option>
+              {dates.map((date) => this.getOption(date))}
+            </select>
+          );
+        }}
+      </FormContext.Consumer>
     );
   }
 }
