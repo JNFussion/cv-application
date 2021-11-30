@@ -1,4 +1,5 @@
 import { Component } from "react";
+import uniqid from "uniqid";
 import { capitalize, getSelectType } from "../util";
 import Input from "./input";
 import Select from "./select";
@@ -30,15 +31,18 @@ class Group extends Component {
 
       if (index !== -1) {
         arr[index].fields.push({
+          id: field.id,
           name: `${field.name}.${field.subName}`,
           type: "select",
           value: field.value,
         });
       } else {
         arr.push({
+          id: uniqid(),
           name: this.getGroupName(field.name),
           fields: [
             {
+              id: field.id,
               name: `${field.name}.${field.subName}`,
               type: "select",
               value: field.value,
@@ -58,6 +62,7 @@ class Group extends Component {
           <legend>{this.props.group.name}</legend>
           {subGroups.map((group) => (
             <Group
+              key={group.id}
               group={group}
               timePeriodCompleted={this.state.timePeriodCompleted}
             />
@@ -72,11 +77,12 @@ class Group extends Component {
         {this.props.group.fields.map((field) => {
           if (this.state.timePeriodCompleted) {
             if (field.name === "endDate.month") {
-              return;
+              return undefined;
             }
             if (field.type && field.name.startsWith("startDate")) {
               return (
                 <Select
+                  key={field.id}
                   name={field.name}
                   type={getSelectType(field.name)}
                   value={field.value}
@@ -86,6 +92,7 @@ class Group extends Component {
 
             return (
               <Input
+                key={field.id}
                 field={{
                   type: "checkbox",
                   labelText: "On Progress",
@@ -98,6 +105,7 @@ class Group extends Component {
             if (field.type && field.type === "select") {
               return (
                 <Select
+                  key={field.id}
                   name={field.name}
                   type={getSelectType(field.name)}
                   value={field.value}
@@ -105,7 +113,7 @@ class Group extends Component {
               );
             }
           }
-          return <Input field={field} />;
+          return <Input key={field.id} field={field} />;
         })}
       </fieldset>
     );

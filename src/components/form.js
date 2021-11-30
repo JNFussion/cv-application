@@ -7,7 +7,13 @@ import Input from "./input";
 class Form extends Component {
   constructor(props) {
     super(props);
-    this.state = { form: fakeDeepCopy(this.props.defaultForm) };
+    const aux = { form: fakeDeepCopy(this.props.defaultForm) };
+    aux.form.forEach((group) => {
+      group.id = uniqid();
+      group.fields.forEach((field) => (field.id = uniqid()));
+    });
+
+    this.state = aux;
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -74,6 +80,7 @@ class Form extends Component {
           if (group.name === undefined) {
             return (
               <Input
+                key={group.fields[0].id}
                 field={group.fields[0]}
                 form={this.state.form}
                 handleChange={this.handleChange}
@@ -82,6 +89,7 @@ class Form extends Component {
           }
           return (
             <FormContext.Provider
+              key={group.id}
               value={{ form: this.state.form, handleChange: this.handleChange }}
             >
               <Group group={group} timePeriodCompleted={group.completed} />

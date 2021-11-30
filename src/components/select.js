@@ -21,9 +21,12 @@ class Select extends Component {
     };
   }
 
-  getOption(date) {
+  getOption(date, index) {
     return (
-      <option value={dateFns["get" + capitalize(this.props.type)](date)}>
+      <option
+        key={index}
+        value={dateFns["get" + capitalize(this.props.type)](date)}
+      >
         {dateFns.format(date, this.state[this.props.type].format)}
       </option>
     );
@@ -45,7 +48,7 @@ class Select extends Component {
               onChange={handleChange}
             >
               <option value="">-- No Specified --</option>
-              {dates.map((date) => this.getOption(date))}
+              {dates.map((date, index) => this.getOption(date, index))}
             </select>
           );
         }}
