@@ -7,6 +7,8 @@ import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 import { getMonth, getYear } from "date-fns";
 import List from "./list";
+import isEqual from "date-fns/isEqual";
+import lastDayOfYear from "date-fns/lastDayOfYear";
 
 export const ActionsContext = React.createContext({
   id: "",
@@ -96,12 +98,22 @@ class EducationInformation extends Component {
       return obj;
     }, {});
 
+    if (dateVal.year === "-1" && dateVal.month === "-1") {
+      return new Date();
+    }
+
+    if (dateVal.year !== "" && dateVal.month === "") {
+      return new Date(dateVal.year, 11, 31);
+    }
+
+    if (dateVal.year === "" && dateVal.month !== "") {
+      return new Date(getYear(new Date()), dateVal.month);
+    }
+
     if (dateVal.year !== "" && dateVal.month !== "") {
       return new Date(dateVal.year, dateVal.month);
     }
   }
-
-  getDateMonth(dates) {}
 
   addEducation(e) {
     e.preventDefault();

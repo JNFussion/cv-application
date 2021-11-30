@@ -10,7 +10,6 @@ class Input extends Component {
 
   getValue(form, name) {
     let val;
-
     form.forEach((group) => {
       group.fields.forEach((field) => {
         if (field.name === name) {

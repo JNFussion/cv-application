@@ -1,17 +1,29 @@
-import { format, isEqual } from "date-fns";
+import { format, isEqual, isToday, isValid, lastDayOfYear } from "date-fns";
 import { Component } from "react";
 import ActionButton from "./actionButton";
 
 class EducationInformationField extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { actionBtnTypes: ["edit", "delete"] };
+  }
+
   timePeriodFormatted(date) {
-    if (isEqual(date, new Date("", ""))) {
+    if (!isValid(date)) {
+      return "Unknown";
+    }
+    if (isToday(date)) {
       return "Present";
     }
+    if (isEqual(lastDayOfYear(date), date)) {
+      return format(date, "yyyy");
+    }
+
     return format(date, "MM-yyyy");
   }
 
   render() {
-    const actionBtnTypes = ["edit", "delete"];
     return (
       <li className="flex justify-between m-2 px-4 py-2 border border-solid border-blue-200 rounded-md bg-gray-200">
         <article>
@@ -28,7 +40,7 @@ class EducationInformationField extends Component {
           <p className="px-1 text-sm font-light">{this.props.item.school}</p>
         </article>
         <div className="flex items-start gap-2">
-          {actionBtnTypes.map((type) => (
+          {this.state.actionBtnTypes.map((type) => (
             <ActionButton btnType={type} id={this.props.item.id} />
           ))}
         </div>

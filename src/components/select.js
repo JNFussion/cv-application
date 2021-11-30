@@ -48,6 +48,9 @@ class Select extends Component {
               onChange={handleChange}
             >
               <option value="">-- No Specified --</option>
+              {this.props.name.startsWith("endDate") && (
+                <option value="-1">-- Present</option>
+              )}
               {dates.map((date, index) => this.getOption(date, index))}
             </select>
           );
