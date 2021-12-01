@@ -62,7 +62,7 @@ class EducationField extends Component {
           {this.props.item.mainTask && this.renderMainTask()}
           <p className="px-1 text-sm font-light">{this.getName()}</p>
         </article>
-        <div className="flex items-start gap-2">
+        <div className="flex flex-col sm:flex-row items-start gap-2">
           {this.state.actionBtnTypes.map((type) => (
             <ActionButton
               key={this.state.ids[type]}

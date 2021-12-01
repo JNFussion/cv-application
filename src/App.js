@@ -6,7 +6,7 @@ import Job from "./components/job";
 class App extends Component {
   render() {
     return (
-      <div className="mx-auto max-w-half">
+      <div className="mx-auto max-w-screen-lg">
         <Personal />
         <Education />
         <Job />
