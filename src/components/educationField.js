@@ -3,7 +3,7 @@ import { Component } from "react";
 import uniqid from "uniqid";
 import ActionButton from "./actionButton";
 
-class EducationInformationField extends Component {
+class EducationField extends Component {
   constructor(props) {
     super(props);
 
@@ -76,4 +76,4 @@ class EducationInformationField extends Component {
   }
 }
 
-export default EducationInformationField;
+export default EducationField;

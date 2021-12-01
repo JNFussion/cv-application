@@ -1,5 +1,5 @@
 import { EventHandlers } from "./experience";
-import EducationInformationField from "./educationInformationField";
+import EducationField from "./educationField";
 import Form from "./form";
 
 function Item(props) {
@@ -19,7 +19,7 @@ function Item(props) {
       </EventHandlers.Consumer>
     );
   }
-  return <EducationInformationField item={props.educaiton} />;
+  return <EducationField item={props.educaiton} />;
 }
 
 export default Item;

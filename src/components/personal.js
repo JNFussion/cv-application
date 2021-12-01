@@ -6,7 +6,7 @@ import ActionButton from "./actionButton";
 import { ActionsContext } from "./experience";
 import { fakeDeepCopy } from "../util";
 
-class GeneralInformation extends Component {
+class Personal extends Component {
   constructor(props) {
     super(props);
 
@@ -151,4 +151,4 @@ class GeneralInformation extends Component {
   }
 }
 
-export default GeneralInformation;
+export default Personal;
