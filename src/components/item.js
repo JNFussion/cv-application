@@ -1,4 +1,4 @@
-import { EventHandlers } from "./educationInformation";
+import { EventHandlers } from "./experience";
 import EducationInformationField from "./educationInformationField";
 import Form from "./form";
 
@@ -6,12 +6,12 @@ function Item(props) {
   if (props.educaiton.isEditing) {
     return (
       <EventHandlers.Consumer>
-        {({ editEducation, updateEducation, toggleIsEditing }) => {
+        {({ editExperience, updateExperience, toggleIsEditing }) => {
           return (
             <Form
               eduId={props.educaiton.id}
-              defaultForm={editEducation(props.educaiton.id)}
-              submitHandler={updateEducation}
+              defaultForm={editExperience(props.educaiton.id)}
+              submitHandler={updateExperience}
               hideForm={toggleIsEditing}
             />
           );

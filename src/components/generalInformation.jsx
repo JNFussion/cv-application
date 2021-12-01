@@ -3,7 +3,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import Form from "./form";
 import PersonalInfoContent from "./personalInfoContent";
 import ActionButton from "./actionButton";
-import { ActionsContext } from "./educationInformation";
+import { ActionsContext } from "./experience";
 import { fakeDeepCopy } from "../util";
 
 class GeneralInformation extends Component {

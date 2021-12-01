@@ -1,4 +1,3 @@
-import { lastDayOfYear } from "date-fns";
 import { Component } from "react";
 import uniqid from "uniqid";
 import { capitalize, getSelectType } from "../util";

@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ActionsContext } from "./educationInformation";
+import { ActionsContext } from "./experience";
 
 function ActionButton(props) {
   return (

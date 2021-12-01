@@ -33,9 +33,6 @@ class Input extends Component {
     } else {
       this.props.handleChange(e);
     }
-    if (this.props.toggleTimePeriodCompleted) {
-      this.props.toggleTimePeriodCompleted();
-    }
   }
 
   render() {
